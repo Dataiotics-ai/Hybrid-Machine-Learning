@@ -31,4 +31,4 @@ $ streamlit run app.py
 - Docker 
 - Google Cloud Service
 # Deployment 
-![Streamlit](Deployment.png)
+![Streamlit](Deployment.PNG)
