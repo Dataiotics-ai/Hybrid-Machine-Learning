@@ -44,13 +44,13 @@ def predict(
 def main():
     with st.expander(label="Enter the Inputs for Predicting ✏️", expanded=True):
         holiday = st.selectbox(
-            'Was it a Holiday ?',
+            'is it a Holiday ?',
             ('Yes', 'No'))
         if holiday == 'Yes':
             holiday = 0
         else:
             holiday = 1
-        temperature = st.slider('What was the Temperature?', -50, 50, 0)
+        temperature = st.slider('What is the Temperature?', -50, 50, 0)
         rain = st.selectbox(
             'Was there any Rain today?',
             ('Yes', 'No'))
@@ -66,9 +66,9 @@ def main():
         else:
             snow = 0
         cloudCoverage = st.slider(
-            'What was the Cloud Coverage Percentage?', 0, 100, 0)
+            'What is the Cloud Coverage Percentage?', 0, 100, 0)
         weatherMain = st.selectbox(
-            'How was the Weather?',
+            'How is the Weather?',
             ('Clear',
              'Clouds',
              'Drizzle',
@@ -103,7 +103,7 @@ def main():
         elif weatherMain == 'Thunderstorm':
             weatherMain = 10
         weatherDescription = st.selectbox(
-            'What was the Weather Description?',
+            'What is the Weather Description?',
             ('Broken Clouds',
              'Drizzling',
              'Few Clouds',
@@ -152,8 +152,8 @@ def main():
             weatherDescription = 15
         elif weatherDescription == 'Others':
             weatherDescription = 11
-        hour = st.slider('What was the Hour of the Day?', 0, 23, 0)
-        date = st.date_input('What was the date?')
+        hour = st.slider('What is the Hour of the Day?', 0, 23, 0)
+        date = st.date_input('What`s the date today?')
         dateConvert = pd.Timestamp(date)
         weekday = dateConvert.dayofweek
         month = dateConvert.month - 1
