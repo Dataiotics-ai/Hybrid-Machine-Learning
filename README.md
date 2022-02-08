@@ -30,3 +30,5 @@ $ streamlit run app.py
 - streamlit
 - Docker 
 - Google Cloud Service
+# Deployment 
+![Streamlit](Deployment.png)
