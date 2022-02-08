@@ -5,43 +5,81 @@ import warnings
 import base64
 warnings.filterwarnings("ignore")
 
-with open('./assests/model_pkl' , 'rb') as f:
+with open('./assests/model_pkl', 'rb') as f:
     model = pickle.load(f)
 
-st.set_page_config(layout="centered", page_icon="🚗", page_title="Traffic Volume Prediction")
+st.set_page_config(
+    layout="centered",
+    page_icon="🚗",
+    page_title="Traffic Volume Prediction")
 st.title("🚗 Traffic Volume Prediction  🚗")
-def predict(holiday, temperature, rain, snow, cloudCoverage, weatherMain, weatherDescription, weekday,hour,month, year):
-    Prediction = model.predict([[holiday, temperature, rain, snow, cloudCoverage, weatherMain, weatherDescription, weekday,hour,month, year]])
+
+
+def predict(
+        holiday,
+        temperature,
+        rain,
+        snow,
+        cloudCoverage,
+        weatherMain,
+        weatherDescription,
+        weekday,
+        hour,
+        month,
+        year):
+    Prediction = model.predict([[holiday,
+                                 temperature,
+                                 rain,
+                                 snow,
+                                 cloudCoverage,
+                                 weatherMain,
+                                 weatherDescription,
+                                 weekday,
+                                 hour,
+                                 month,
+                                 year]])
     return (Prediction[0])
 
 
 def main():
     with st.expander(label="Enter the Inputs for Predicting ✏️", expanded=True):
         holiday = st.selectbox(
-        'Was it a Holiday ?',
-        ('Yes', 'No'))
+            'Was it a Holiday ?',
+            ('Yes', 'No'))
         if holiday == 'Yes':
             holiday = 0
         else:
             holiday = 1
         temperature = st.slider('What was the Temperature?', -50, 50, 0)
         rain = st.selectbox(
-        'Was there any Rain today?',
-        ('Yes', 'No'))
+            'Was there any Rain today?',
+            ('Yes', 'No'))
         if rain == 'Yes':
             rain = 1
         else:
             rain = 0
         snow = st.selectbox(
-        'Was there any Snow today?',
-        ('Yes', 'No'))
+            'Was there any Snow today?',
+            ('Yes', 'No'))
         if snow == 'Yes':
             snow = 1
         else:
             snow = 0
-        cloudCoverage =  st.slider('What was the Cloud Coverage Percentage?', 0,100,0)
-        weatherMain = st.selectbox('How was the Weather?',
-        ('Clear', 'Clouds', 'Drizzle', 'Fog', 'Haze', 'Mist','Rain', 'Smoke', 'Snow', 'Squall', 'Thunderstorm'))
+        cloudCoverage = st.slider(
+            'What was the Cloud Coverage Percentage?', 0, 100, 0)
+        weatherMain = st.selectbox(
+            'How was the Weather?',
+            ('Clear',
+             'Clouds',
+             'Drizzle',
+             'Fog',
+             'Haze',
+             'Mist',
+             'Rain',
+             'Smoke',
+             'Snow',
+             'Squall',
+             'Thunderstorm'))
         if weatherMain == 'Clear':
             weatherMain = 0
         elif weatherMain == 'Clouds':
@@ -64,8 +102,24 @@ def main():
             weatherMain = 9
         elif weatherMain == 'Thunderstorm':
             weatherMain = 10
-        weatherDescription = st.selectbox('What was the Weather Description?',
-        ('Broken Clouds','Drizzling','Few Clouds','Foggy','Haze','Heavy Intensity Rain','Heavy Snow','Light Intensity Rain','Light Snow','Mist','Moderate Rain','Overcast Clouds','Scattered Clouds','Clear Sky','Snow','Others'))
+        weatherDescription = st.selectbox(
+            'What was the Weather Description?',
+            ('Broken Clouds',
+             'Drizzling',
+             'Few Clouds',
+             'Foggy',
+             'Haze',
+             'Heavy Intensity Rain',
+             'Heavy Snow',
+             'Light Intensity Rain',
+             'Light Snow',
+             'Mist',
+             'Moderate Rain',
+             'Overcast Clouds',
+             'Scattered Clouds',
+             'Clear Sky',
+             'Snow',
+             'Others'))
         if weatherDescription == 'Broken Clouds':
             weatherDescription = 0
         elif weatherDescription == 'Drizzling':
@@ -102,11 +156,24 @@ def main():
         date = st.date_input('What was the date?')
         dateConvert = pd.Timestamp(date)
         weekday = dateConvert.dayofweek
-        month = dateConvert.month-1 
+        month = dateConvert.month - 1
         year = dateConvert.year
         if st.button("Predict"):
-            result = predict(holiday, temperature, rain, snow, cloudCoverage, weatherMain, weatherDescription, weekday,hour,month, year)
+            result = predict(
+                holiday,
+                temperature,
+                rain,
+                snow,
+                cloudCoverage,
+                weatherMain,
+                weatherDescription,
+                weekday,
+                hour,
+                month,
+                year)
             st.balloons()
             st.success('The Traffic Volume is {}'.format(round(result)))
-if __name__=='__main__':
+
+
+if __name__ == '__main__':
     main()
